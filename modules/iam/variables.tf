@@ -1,15 +1,12 @@
 variable "name_prefix" {
-  description = "Prefix used for naming the role"
   type = string
 }
 
 variable "role-use" {
-  description = "This describes the role use so as to distinguish roles from another"
   type = string
 }
 
 variable "trusted_service" {
-  description = "For this project, the ecs and ec2 services are the only services trusted to use this service"
   type = string
 
   validation {
@@ -22,7 +19,6 @@ variable "trusted_service" {
 # so, i had to encourage least-privilege access by restricting wildcard access to the resources ("*")
 
 variable "s3_read_arn" {
-  description = "This is to validate the S3 bucket/object ARNs this role can read from"
   type = list(string)
   default = []
 
@@ -33,7 +29,6 @@ variable "s3_read_arn" {
 }
 
 variable "s3_write_arn" {
-  description = "This is to validate the S3 bucket/object ARNs this role can write from"
   type = list(string)
   default = []
 
@@ -44,12 +39,29 @@ variable "s3_write_arn" {
 }
 
 variable "secrets_read_arn" {
-  description = "Secrets Manager secret ARNs this role may read"
   type = list(string)
   default = []
 
   validation {
     condition = alltrue([for a in var.secrets_read_arn : a != "*"])
     error_message = "Wildcard * is not allowed. Please, specify the exact secret ARNs !!"
+  }
+}
+
+variable "athena_workgroup_arns" {
+  type = list(string)
+  default = []
+  validation {
+    condition = alltrue([for a in var.athena_workgroup_arns : a != "*"])
+    error_message = "Wildcard * is not allowed. Specify exact workgroup ARNs."
+  }
+}
+
+variable "glue_database_arns" {
+  type = list(string)
+  default = []
+  validation {
+    condition = alltrue([for a in var.glue_database_arns : a != "*"])
+    error_message = "Wildcard * is not allowed. Specify exact Glue database/table ARNs."
   }
 }

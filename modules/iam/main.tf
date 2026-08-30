@@ -69,3 +69,33 @@ resource "aws_iam_instance_profile" "create_instance_profile" {
   name = "${local.base_name}-instance-profile"
   role = aws_iam_role.create_iam_role.name
 }
+
+resource "aws_iam_role_policy" "athena_query" {
+  count = length(var.athena_workgroup_arns) > 0 ? 1 : 0
+  name  = "${local.base_name}-athena-query"
+  role  = aws_iam_role.create_iam_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["athena:StartQueryExecution", "athena:GetQueryExecution", "athena:GetQueryResults", "athena:StopQueryExecution"]
+      Resource = var.athena_workgroup_arns
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "glue_read" {
+  count = length(var.glue_database_arns) > 0 ? 1 : 0
+  name  = "${local.base_name}-glue-read"
+  role  = aws_iam_role.create_iam_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["glue:GetDatabase", "glue:GetTable", "glue:GetTables", "glue:GetPartitions"]
+      Resource = var.glue_database_arns
+    }]
+  })
+}
