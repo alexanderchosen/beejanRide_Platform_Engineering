@@ -88,6 +88,7 @@ module "athena_results_bucket" {
 
 resource "aws_athena_workgroup" "workgroup" {
   name = "${var.name_prefix}-${var.purpose}-wg"
+  force_destroy = true
 
   configuration {
     enforce_workgroup_configuration = true

@@ -28,6 +28,7 @@ resource "aws_kms_key" "kms_key" {
 
 resource "aws_s3_bucket" "my_s3_bucket" {
   bucket = local.bucket_name
+  force_destroy = true
 
   tags = {
     Name  = local.bucket_name
