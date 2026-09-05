@@ -1,6 +1,5 @@
 # i first need to define a name prefix variable
 variable "name_prefix"{
-    description = "The prefix given by a user is attached to the name as a distinct tag"
     type = string
 }
 

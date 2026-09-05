@@ -22,7 +22,6 @@ variable "engine" {
   type = string
   default = "postgres"
 
-
   }
 
 variable "engine_version" {
