@@ -11,8 +11,8 @@ locals {
   bucket_name = lower("${var.name_prefix}-${var.purpose}-${random_id.suffix.hex}")
 
   default_lifecycle_days = {
-    public    = 90
-    internal  = 180
+    public = 90
+    internal = 180
     sensitive = 365
   }
   lifecycle_days = coalesce(var.lifecycle_days, local.default_lifecycle_days[var.data_classification])
@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "my_s3_bucket" {
   force_destroy = true
 
   tags = {
-    Name  = local.bucket_name
+    Name = local.bucket_name
     DataClassification = var.data_classification
   }
 }
@@ -81,7 +81,7 @@ resource "aws_s3_bucket_policy" "deny_insecure_transport" {
       Effect = "Deny"
       Principal = "*"
       Action = "s3:*"
-      Resource  = [aws_s3_bucket.my_s3_bucket.arn, "${aws_s3_bucket.my_s3_bucket.arn}/*"]
+      Resource = [aws_s3_bucket.my_s3_bucket.arn, "${aws_s3_bucket.my_s3_bucket.arn}/*"]
       Condition = { Bool = { "aws:SecureTransport" = "false" } }
     }]
   })

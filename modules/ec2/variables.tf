@@ -1,11 +1,11 @@
 variable "name_prefix" {
-  description = "Thsi prefix will be added to the default tags I have set"
-  type        = string
+  description = "This prefix will be added to the default tags I have set"
+  type = string
 }
 
 variable "purpose" {
   description = "This is to give an additional short identifier for this instance to create differences in their names"
-  type        = string
+  type = string
 }
 
 variable "vpc_id" {
@@ -17,16 +17,16 @@ variable "subnet_id" {
 }
 
 variable "instance_type" {
-  type    = string
+  type = string
   default = "t3.micro"
 }
 
 variable "allowed_ingress_cidr" {
   description = "This refers to the CIDR allowed to reach the instance."
-  type        = string
+  type = string
 }
 
 variable "ingress_port" {
-  type    = number
+  type = number
   default = 22
 }

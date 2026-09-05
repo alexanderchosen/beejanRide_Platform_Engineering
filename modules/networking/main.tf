@@ -59,14 +59,14 @@ resource "aws_internet_gateway" "create_internet_gateway" {
 }
 
 resource "aws_eip" "nat_gateway" {
-  count  = var.nat_gateway_enable ? 1 : 0
+  count = var.nat_gateway_enable ? 1 : 0
   domain = "vpc"
 }
 
 resource "aws_nat_gateway" "create_nat_gateway" {
-  count         = var.nat_gateway_enable ? 1 : 0
+  count = var.nat_gateway_enable ? 1 : 0
   allocation_id = aws_eip.nat_gateway[0].id
-  subnet_id     = aws_subnet.public[0].id
+  subnet_id = aws_subnet.public[0].id
 
   tags = {
     Name = "${var.name_prefix}-nat-gateway"

@@ -23,7 +23,7 @@ variable "s3_read_arn" {
   default = []
 
   validation {
-    condition = alltrue([for a in var.s3_read_arn : a != "*"])
+    condition = alltrue([for arn in var.s3_read_arn : arn != "*"])
     error_message = "Wildcard * is not allowed. Please, specify the exact bucket/object ARNs !!"
   }
 }
@@ -33,7 +33,7 @@ variable "s3_write_arn" {
   default = []
 
   validation {
-    condition = alltrue([for a in var.s3_write_arn : a != "*"])
+    condition = alltrue([for arn in var.s3_write_arn : arn != "*"])
     error_message = "Wildcard * is not allowed. Please, specify the exact bucket/object ARNs !!"
   }
 }
@@ -43,7 +43,7 @@ variable "secrets_read_arn" {
   default = []
 
   validation {
-    condition = alltrue([for a in var.secrets_read_arn : a != "*"])
+    condition = alltrue([for arn in var.secrets_read_arn : arn != "*"])
     error_message = "Wildcard * is not allowed. Please, specify the exact secret ARNs !!"
   }
 }
@@ -52,7 +52,7 @@ variable "athena_workgroup_arns" {
   type = list(string)
   default = []
   validation {
-    condition = alltrue([for a in var.athena_workgroup_arns : a != "*"])
+    condition = alltrue([for arn in var.athena_workgroup_arns : arn != "*"])
     error_message = "Wildcard * is not allowed. Specify exact workgroup ARNs."
   }
 }
@@ -61,7 +61,7 @@ variable "glue_database_arns" {
   type = list(string)
   default = []
   validation {
-    condition = alltrue([for a in var.glue_database_arns : a != "*"])
+    condition = alltrue([for arn in var.glue_database_arns : arn != "*"])
     error_message = "Wildcard * is not allowed. Specify exact Glue database/table ARNs."
   }
 }

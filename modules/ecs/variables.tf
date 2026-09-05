@@ -1,4 +1,4 @@
-# since, we are not using Fargate to manage the AWS server
+# since, i did not use Fargate to manage the AWS server
 # i have to consider auto scaling group, launch template, assign IAM, and a provider
 
 
@@ -19,22 +19,22 @@ variable "subnet_ids" {
 }
 
 variable "instance_type" {
-  type    = string
+  type = string
   default = "t3.micro"
 }
 
 variable "min_size" {
-  type    = number
+  type = number
   default = 1
 }
 
 variable "max_size" {
-  type    = number
+  type = number
   default = 1
 }
 
 variable "desired_capacity" {
-  type    = number
+  type = number
   default = 1
 }
 
@@ -47,17 +47,17 @@ variable "container_port" {
 }
 
 variable "task_cpu" {
-  type    = number
+  type = number
   default = 256
 }
 
 variable "task_memory" {
-  type    = number
+  type = number
   default = 256
 }
 
 variable "desired_count" {
-  type    = number
+  type = number
   default = 1
 }
 
@@ -66,16 +66,16 @@ variable "allowed_ingress_cidr" {
 }
 
 variable "s3_read_arn" {
-  type    = list(string)
+  type = list(string)
   default = []
 }
 
 variable "s3_write_arn" {
-  type    = list(string)
+  type = list(string)
   default = []
 }
 
 variable "secrets_read_arn" {
-  type    = list(string)
+  type = list(string)
   default = []
 }

@@ -5,7 +5,7 @@ locals {
 }
 
 resource "random_password" "master_pw" {
-  length  = 20
+  length = 20
   special = false
 }
 
