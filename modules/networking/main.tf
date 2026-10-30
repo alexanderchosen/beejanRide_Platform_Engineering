@@ -24,10 +24,9 @@ resource "aws_vpc" "create_vpc" {
 resource "aws_subnet" "public" {
   count = var.az_count
   vpc_id = aws_vpc.create_vpc.id
-  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index)
+  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index) // 10.0.0.0/16+8 = 10.0.0.0/24
   availability_zone = data.aws_availability_zones.check_availability.names[count.index]
   map_public_ip_on_launch = true
-
 
   tags = {
     Name = "${var.name_prefix}-public-${count.index}"
@@ -39,7 +38,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   count = var.az_count
   vpc_id = aws_vpc.create_vpc.id
-  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index + 100)
+  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index + 100) //10.0.100.0/16 + 8
   availability_zone = data.aws_availability_zones.check_availability.names[count.index]
 
   tags = {
@@ -49,7 +48,6 @@ resource "aws_subnet" "private" {
 
 
 # Next, here is for the routes and gateways
-
 resource "aws_internet_gateway" "create_internet_gateway" {
   vpc_id = aws_vpc.create_vpc.id
 
